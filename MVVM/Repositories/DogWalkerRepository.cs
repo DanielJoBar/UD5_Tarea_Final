@@ -14,8 +14,6 @@ namespace DogWalker.MVVM.Repositories
     {
         SQLiteConnection connection;
         public string StatusMessages { get; set; }
-        public Dog CurrentDog { get; set; } = null;
-        public Walk CurrentWalk { get; set; } = null;
         public string TypeMessages { get; set; }
         private enum STATES
         {
@@ -61,9 +59,10 @@ namespace DogWalker.MVVM.Repositories
 
         public Dog GetDog(int id)
         {
+            Dog currentDog = null;
             try
             {
-                CurrentDog = connection.Get<Dog>(id);
+                currentDog = connection.Get<Dog>(id);
                 TypeMessages = STATES.INFORMATION.ToString();
             }
             catch (Exception ex)
@@ -72,7 +71,7 @@ namespace DogWalker.MVVM.Repositories
                 TypeMessages = STATES.ERROR.ToString();
             }
 
-            return CurrentDog;
+            return currentDog;
         }
 
         public void DeleteDog(int id)
@@ -93,10 +92,11 @@ namespace DogWalker.MVVM.Repositories
 
         public void AddWalk(Walk paseo)
         {
+            Dog currentDog=GetDog(paseo.PerroID);
             try
             {
                 connection.Insert(paseo);
-                StatusMessages = $"{CurrentDog.Nombre} va a pasear el { paseo.Fecha.ToString("dd/MM/yyyy")} de { paseo.Inicio.ToString("hh\\:mm")} a { paseo.Fin.ToString("hh\\:mm")}";
+                StatusMessages = $"{currentDog.Nombre} va a pasear el { paseo.Fecha.ToString("dd/MM/yyyy")} de { paseo.Inicio.ToString("hh\\:mm")} a { paseo.Fin.ToString("hh\\:mm")}";
                 TypeMessages = STATES.INFORMATION.ToString();
             }
             catch (Exception ex)
@@ -141,10 +141,11 @@ namespace DogWalker.MVVM.Repositories
         
         public void DeleteWalk(int id)
         {
+            Walk currentWalk = GetWalk(id);
             try
             {
                 connection.Delete<Walk>(id);
-                StatusMessages = $"Se ha eliminado el paseo del día {CurrentWalk.Fecha.ToString("dd/MM/yyyy")} de {CurrentWalk.Inicio.ToString("hh\\:mm")} a {CurrentWalk.Fin.ToString("hh\\:mm")}";
+                StatusMessages = $"Se ha eliminado el paseo del día {currentWalk.Fecha.ToString("dd/MM/yyyy")} de {currentWalk.Inicio.ToString("hh\\:mm")} a {currentWalk.Fin.ToString("hh\\:mm")}";
                 TypeMessages = STATES.INFORMATION.ToString();
             }
             catch (Exception ex)
