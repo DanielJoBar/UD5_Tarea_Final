@@ -10,7 +10,7 @@ using SQLite;
 
 namespace DogWalker.MVVM.Repositories
 {
-    internal class DogWalkerRepository 
+    public class DogWalkerRepository 
     {
         SQLiteConnection connection;
         public string StatusMessages { get; set; }

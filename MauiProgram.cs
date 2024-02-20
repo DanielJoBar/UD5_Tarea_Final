@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using DogWalker.MVVM.Repositories;
+using Microsoft.Extensions.Logging;
 
 namespace DogWalker
 {
@@ -15,9 +16,7 @@ namespace DogWalker
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-#if DEBUG
-		builder.Logging.AddDebug();
-#endif
+            builder.Services.AddSingleton<DogWalkerRepository>();
 
             return builder.Build();
         }
