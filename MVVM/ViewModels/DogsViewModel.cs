@@ -1,50 +1,75 @@
 ﻿using DogWalker.MVVM.Models;
 using PropertyChanged;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace DogWalker.MVVM.ViewModels
 {
+    /// <summary>
+    /// ViewModel para la vista de perros.
+    /// </summary>
     [AddINotifyPropertyChangedInterface]
-    internal class DogsViewModel
+    public class DogsViewModel : BaseViewModel
     {
-        public List<Dog> Perros;
-        public Dog PerroActual;
-        public bool ListaVacia;
-        public bool ListaNoVacia;
-        public ICommand DetalleCommand;
-        public ICommand BorrarCommand;
-        
-        DogsViewModel( BaseViewModel baseView )
+        /// <summary>
+        /// Lista de perros.
+        /// </summary>
+        public List<Dog> Perros { get; set; }
+
+        /// <summary>
+        /// Perro actual seleccionado.
+        /// </summary>
+        public Dog PerroActual { get; set; }
+
+        /// <summary>
+        /// Indica si la lista de perros está vacía.
+        /// </summary>
+        public bool ListaVacia { get; set; }
+
+        /// <summary>
+        /// Indica si la lista de perros no está vacía.
+        /// </summary>
+        public bool ListaNoVacia { get; set; }
+
+        /// <summary>
+        /// Comando para ver el detalle de un perro.
+        /// </summary>
+        public ICommand DetalleCommand { get; }
+
+        /// <summary>
+        /// Comando para borrar un perro.
+        /// </summary>
+        public ICommand BorrarCommand { get; }
+
+        /// <summary>
+        /// Constructor de la clase DogsViewModel.
+        /// </summary>
+        public DogsViewModel()
         {
             PerroActual = new Dog();
-            DetalleCommand = new Command(() => {
-            
-                PerroActual = App.DogWalkerRepository.GetDog(1);
-            
-            });
-            BorrarCommand = new Command(() =>
+            DetalleCommand = new Command<int>((id) =>
             {
-                
-                PerroActual = App.DogWalkerRepository.GetDog(1);
-                App.DogWalkerRepository.DeleteWalks(PerroActual.Id);
-                App.DogWalkerRepository.DeleteDog(PerroActual.Id);
-                App.DogWalkerRepository.TypeMessages = baseView.TypeMessage;
-                App.DogWalkerRepository.StatusMessages = baseView.StatusMessage;
+                PerroActual = App.DogWalkerRepository.GetDog(id);
+            });
+            BorrarCommand = new Command<int>((id) =>
+            {
+                PerroActual = App.DogWalkerRepository.GetDog(id);
+                App.DogWalkerRepository.DeleteWalks(id);
+                App.DogWalkerRepository.DeleteDog(id);
+                TypeMessage = App.DogWalkerRepository.TypeMessages;
+                StatusMessage = App.DogWalkerRepository.StatusMessages;
+                Mensaje(TypeMessage, StatusMessage);
                 Actualizar();
-
             });
         }
-        
+
+        /// <summary>
+        /// Actualiza la lista de perros.
+        /// </summary>
         public void Actualizar()
         {
             Perros = App.DogWalkerRepository.GetAllDogs();
-
-            ListaVacia = Perros.Count() == 0;
+            ListaVacia = Perros.Count == 0;
             ListaNoVacia = !ListaVacia;
         }
     }

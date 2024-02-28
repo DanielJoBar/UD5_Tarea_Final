@@ -7,16 +7,19 @@ using System.Threading.Tasks;
 
 namespace DogWalker.MVVM.Models
 {
-    internal class Dog
+    /// <summary>
+    /// Clase que representa a un perro.
+    /// </summary>
+    public class Dog
     {
         [PrimaryKey]
         [AutoIncrement]
-        public int Id { get; set; }
+        public int Id { get; set; } 
         [NotNull]
         [MaxLength(20)]
-        public string Nombre { get; set; }
+        public string Nombre { get; set; } 
         [NotNull]
         [MaxLength(20)]
-        public string Raza { get; set; }
+        public string Raza { get; set; } 
     }
 }

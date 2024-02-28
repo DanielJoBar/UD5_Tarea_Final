@@ -7,18 +7,21 @@ using System.Threading.Tasks;
 
 namespace DogWalker.MVVM.Models
 {
-    internal class Walk
+    /// <summary>
+    /// Clase que representa un paseo de un perro.
+    /// </summary>
+    public class Walk
     {
         [PrimaryKey]
         [AutoIncrement]
-        public int ID { get; set; }
+        public int ID { get; set; } 
         [NotNull]
-        public int PerroID { get; set; }
+        public int PerroID { get; set; } 
         [NotNull]
-        public DateTime Fecha {  get; set; }
+        public DateTime Fecha { get; set; }
         [NotNull]
         public TimeSpan Inicio { get; set; }
         [NotNull]
-        public TimeSpan Fin { get; set; }
+        public TimeSpan Fin { get; set; } 
     }
 }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DogWalker.MVVM.Views.WalkView"
+             Title="WalkView"
+             NavigationPage.HasBackButton="False">
+    <NavigationPage.TitleView>
+        <Grid ColumnDefinitions="*,*,*" BackgroundColor="LightSalmon">
+            <ImageButton Grid.Column="0" Source="anterior.png" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="36" HeightRequest="36" Clicked="Anterior_Clicked" Margin="5,0,0,0"/>
+            <Label Grid.Column="1" Text="Paseo" HorizontalOptions="Center" VerticalOptions="Center" TextColor="White" FontSize="30" FontAttributes="Bold"/>
+            <ImageButton Grid.Column="2" Source="home.png" HorizontalOptions="End" VerticalOptions="Center" WidthRequest="36" HeightRequest="36" Clicked="Home_Clicked" Margin="0,0,5,0"/>
+        </Grid>
+    </NavigationPage.TitleView>
+    <VerticalStackLayout Background="DarkSalmon">
+        <Frame BorderColor="White" CornerRadius="15" BackgroundColor="Salmon" Margin="10" Padding="10">
+            <VerticalStackLayout>
+                <HorizontalStackLayout>
+                    <Label TextColor="White" Text="Nombre:" FontSize="18"/>
+                    <Label Text="{Binding PerroActual.Nombre}" TextColor="White" FontSize="18" Margin="5,0,0,0"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Label TextColor="White" Text="Raza:" FontSize="18"/>
+                    <Label Text="{Binding PerroActual.Raza}" TextColor="White" FontSize="18" Margin="5,0,0,0"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Frame>
+        <Frame BorderColor="White" CornerRadius="15" BackgroundColor="Salmon" Margin="10" Padding="10">
+            <VerticalStackLayout>
+                <Image Source="fecha.png" HeightRequest="36" WidthRequest="36" Margin="0,0,0,5"/>
+                <Frame BorderColor="White" CornerRadius="15" BackgroundColor="DarkSalmon" WidthRequest="160" Padding="0">
+                    <DatePicker Format="dd/MM/yyy" TextColor="White" HorizontalOptions="Center" Date="{Binding Paseo.Fecha}" FontSize="18"/>
+                </Frame>
+                <HorizontalStackLayout HorizontalOptions="Center" Margin="0,10,0,0">
+                    <VerticalStackLayout>
+                        <Image Source="inicio.png" HeightRequest="36" WidthRequest="36" Margin="0,0,0,5"/>
+                        <Frame BorderColor="White" CornerRadius="15" BackgroundColor="DarkSalmon" Padding="15,0">
+                            <TimePicker Format="HH:mm" TextColor="White" HorizontalOptions="Center" Time="{Binding Paseo.Inicio}" FontSize="18"/>
+                        </Frame>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Margin="10,0,0,0">
+                        <Image Source="fin.png" HeightRequest="36" WidthRequest="36" Margin="0,0,0,5"/>
+                        <Frame BorderColor="White" CornerRadius="15" BackgroundColor="DarkSalmon" Padding="15,0">
+                            <TimePicker Format="HH:mm" TextColor="White" HorizontalOptions="Center" Time="{Binding Paseo.Fin}" FontSize="18"/>
+                        </Frame>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Frame>
+        <Button
+            CornerRadius="15"
+            BorderColor="White"
+            BorderWidth="1"
+            ImageSource="aceptar.png"
+            Margin="0,10,0,10"
+            BackgroundColor="Salmon"
+            HeightRequest="100"
+            WidthRequest="100"
+            Command="{Binding AddWalkCommand}"
+            Clicked="Aceptar_Clicked"/>
+    </VerticalStackLayout>
+</ContentPage>

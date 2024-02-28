@@ -22,5 +22,11 @@ namespace DogWalker.MVVM.Repositories
                 return Path.Combine(FileSystem.AppDataDirectory, DBFilename);
             }
         }
+        public static string ERROR_MESSAGE { 
+            get 
+            {
+                return "Se ha producido un error";
+            }
+            set { } }
     }
 }
